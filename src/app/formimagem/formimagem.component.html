@@ -1,0 +1,140 @@
+<div class="container mt-4 mb-5">
+  <div class="card shadow-sm border-0 rounded-3">
+
+
+    <div class="title-banner d-flex align-items-center justify-content-between p-3 text-white position-relative">
+      <div class="z-2">
+        <h4 class="fw-bold m-0 display-12">Anexos do Integrante</h4>
+        <p class="mb-0 opacity-85 mt-1 d-none d-sm-block">Gerencie imagens e arquivos associados a este registro</p>
+      </div>
+
+    </div>
+
+    <div class="card-body p-4">
+      <!-- Nova sintaxe unificada de Abas do PrimeNG -->
+      <p-tabs value="0">
+
+        <p-tablist class="mb-3">
+          <p-tab value="0"><i class="pi pi-images me-2"></i>Galeria de Imagens</p-tab>
+          <p-tab value="1"><i class="pi pi-folder me-2"></i>Documentos Digitais</p-tab>
+        </p-tablist>
+
+        <p-tabpanels>
+
+          <!-- ABA 1: CARROSSEL DE IMAGENS -->
+          <p-tabpanel value="0">
+            <div
+              class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3 p-3 bg-light rounded-3 border border-light-subtle">
+              <!-- Texto ao lado do botão -->
+              <div class="d-flex align-items-center gap-2">
+                <i class="pi pi-info-circle text-primary fs-5"></i>
+                <div>
+                  <textarea type="text" [(ngModel)]="descricaoImagem" pInputTextarea autofocus rows="2" style="-webkit-box-sizing: border-box;
+                           -moz-box-sizing: border-box;
+                           box-sizing: border-box;
+                       
+                           width: 100%;" cols="50">
+                  </textarea>
+                </div>
+              </div>
+
+              <!-- Botão de Adicionar Imagem -->
+              <p-fileUpload mode="basic" name="demo3[]" chooseIcon="pi pi-upload"
+                url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*,application/pdf"
+                maxFileSize="2000000" (onUpload)="onUploadImage($event)" chooseLabel="Adicionar Imagem" [auto]="true">
+              </p-fileUpload>
+            </div>
+
+            <!-- Carrossel Nativo do PrimeNG utilizando os dados de 'ImageView' -->
+            @if (colecaoImagens().length > 0) {
+            <div class="d-flex justify-content-center bg-light p-3 rounded-3 position-relative">
+              <p-galleria [value]="colecaoImagens()" [responsiveOptions]="responsiveOptions"
+                [containerStyle]="{ 'max-width': '100%', 'width': '640px' }" [numVisible]="4" [circular]="true"
+                [showItemNavigators]="true">
+
+                <ng-template #item let-item>
+                  <div class="position-relative w-100 text-center">
+                    <img [src]="item.previewImageSrc" class="img-fluid object-fit-contain rounded"
+                      style="max-height: 400px; width: 100%;" [alt]="item.alt" />
+                    <!-- Legenda Elegante -->
+                    <div
+                      class="position-absolute bottom-0 start-0 w-100 p-3 bg-light bg-opacity-70 text-dark text-start">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                          <h6 class="mb-0 fw-bold">{{ item.title || 'Sem título' }}</h6>
+                          <small class="d-block text-dark-50">{{ item.descricao }}</small>
+                        </div>
+                        <button pButton icon="pi pi-trash" class="p-button-danger p-button-text"
+                          (click)="removerImagem(item.id)"></button>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+
+                <ng-template #thumbnail let-item>
+                  <img [src]="item.thumbnailImageSrc" class="img-thumbnail"
+                    style="width: 80px; height: 60px; object-fit: cover;" />
+                </ng-template>
+
+              </p-galleria>
+            </div>
+            } @else {
+            <div class="text-center py-5 text-muted bg-light rounded-3">
+              <i class="pi pi-images fs-1 d-block mb-2 text-black-50"></i>
+              Nenhuma imagem disponível no carrossel.
+            </div>
+            }
+          </p-tabpanel>
+
+          <!-- ABA 2: LISTA DE DOCUMENTOS -->
+          <p-tabpanel value="1">
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+              <div>
+                <h5 class="fw-semibold mb-0">Documentos Anexados</h5>
+                <p class="text-muted small mb-0">Formatos permitidos: PDF, DOCX</p>
+              </div>
+              <p-fileUpload mode="basic" name="demo3[]" chooseIcon="pi pi-upload"
+                url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*,application/pdf"
+                maxFileSize="2000000" (onUpload)="onUploadDocto($event)" chooseLabel="Adicionar Documento"
+                [auto]="true">
+              </p-fileUpload>
+            </div>
+
+            <!-- Grid Bootstrap responsivo de Documentos -->
+            <div class="row g-2">
+              @for (doc of colecaoDocumentos(); track doc.id) {
+              <div class="col-12 col-md-6">
+                <div
+                  class="d-flex align-items-center justify-content-between p-3 border rounded-3 bg-white hover-card transition-all">
+                  <div class="d-flex align-items-center text-truncate me-2">
+                    @if (doc.tipo === 'pdf') {
+                    <i class="pi pi-file-pdf text-danger fs-3 me-3"></i>
+                    } @else {
+                    <i class="pi pi-file-word text-primary fs-3 me-3"></i>
+                    }
+                    <div class="text-truncate">
+                      <p class="mb-0 fw-medium text-truncate" style="max-width: 280px;">{{ doc.descricao }}</p>
+                      <small class="text-muted">9999</small>
+                    </div>
+                  </div>
+                  <div class="d-flex gap-1">
+                    <button pButton icon="pi pi-download" class="p-button-text p-button-secondary p-button-sm"></button>
+                    <button pButton icon="pi pi-trash" class="p-button-text p-button-danger p-button-sm"></button>
+                  </div>
+                </div>
+              </div>
+              } @empty {
+              <div class="text-center py-5 text-muted col-12 bg-light rounded-3">
+                <i class="pi pi-folder-open fs-1 d-block mb-2 text-black-50"></i>
+                Nenhum arquivo ou documento anexado.
+              </div>
+              }
+            </div>
+          </p-tabpanel>
+
+        </p-tabpanels>
+      </p-tabs>
+    </div>
+
+  </div>
+</div>

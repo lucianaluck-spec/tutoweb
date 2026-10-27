@@ -1,0 +1,117 @@
+/* Gradiente moderno e premium para o Banner de Fundo */
+.birthday-banner {
+ // background: linear-gradient(135deg, #4f46e5 0%, #0d6efd 100%);
+  background: #455B66;
+}
+
+.opacity-85 {
+  opacity: 0.85;
+}
+
+/* Customização dos Inputs e Selects Modernos (Sem bordas pretas) */
+::ng-deep .custom-select.p-select {
+  border: 1px solid #dee2e6 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+::ng-deep .custom-select.p-select:focus-within {
+  border-color: #0d6efd !important;
+}
+
+.custom-input {
+  border: 1px solid #dee2e6 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+.custom-input:focus {
+  border-color: #0d6efd !important;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15) !important;
+}
+
+/* Selo de dia arredondado */
+.day-badge {
+  font-size: 1.1rem;
+  background-color: #e6f0ff !important;
+  color: #0d6efd !important;
+}
+
+/* Customização da Tabela - Estilo Clean */
+::ng-deep .custom-table .p-datatable-thead > tr > th {
+  background-color: #f8f9fa !important;
+  color: #495057 !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid #dee2e6 !important;
+  padding: 1rem !important;
+}
+
+::ng-deep .custom-table .p-datatable-tbody > tr {
+  background-color: #ffffff;
+  transition: background-color 0.2s;
+}
+
+::ng-deep .custom-table .p-datatable-tbody > tr:hover {
+  background-color: #fcfdfe !important;
+}
+
+::ng-deep .custom-table .p-datatable-tbody > tr > td {
+  padding: 1rem !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+/* Botão de parabenizar arredondado elegante */
+::ng-deep .custom-action-btn.p-button {
+  border-color: #0d6efd !important;
+  color: #0d6efd !important;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+::ng-deep .custom-action-btn.p-button:hover {
+  background-color: #0d6efd !important;
+  color: #ffffff !important;
+}
+
+/* --- SUPORTE COMPACTO PARA RESPONSIVIDADE MOBILE (STACK) --- */
+@media (max-width: 767px) {
+  ::ng-deep .custom-table .p-datatable-tbody > tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    padding: 1rem !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important;
+    background-color: #ffffff !important;
+  }
+
+  ::ng-deep .custom-table .p-datatable-tbody > tr > td {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    border: none !important;
+    padding: 0.5rem 0 !important;
+    width: 100% !important;
+    text-align: right !important;
+  }
+
+  ::ng-deep .custom-table .p-datatable-tbody > tr > td .d-flex {
+    justify-content: flex-end;
+  }
+}
+
+/* Botão elegante customizado para o WhatsApp */
+::ng-deep .whatsapp-btn.p-button {
+  border-color: #25d366 !important;
+  color: #25d366 !important;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+::ng-deep .whatsapp-btn.p-button:hover {
+  background-color: #25d366 !important;
+  border-color: #25d366 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2) !important;
+}

@@ -1,0 +1,103 @@
+<div class="container mt-4 mb-5">
+  <!-- Cartão Principal Elegante -->
+  <div class="card shadow-sm border-0 rounded-3">
+    <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+      <h4 class="fw-bold text-secondary m-0">Gerenciador de Mídias e Documentos</h4>
+      <small class="text-muted">Faça o upload e organize os arquivos do integrante</small>
+    </div>
+    
+    <div class="card-body p-4">
+      <!-- Sistema de Abas do PrimeNG -->
+      <p-tabView styleClass="custom-tabs">
+        
+        <!-- ABA 1: IMAGENS -->
+        <p-tabPanel header="Imagens" leftIcon="pi pi-image">
+          <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+            <div>
+              <h5 class="fw-semibold mb-1">Galeria de Fotos</h5>
+              <p class="text-muted small mb-0">Formatos aceitos: JPG, PNG. Máx 5MB.</p>
+            </div>
+            <!-- Botão de Adicionar Imagem customizado PrimeNG -->
+            <p-fileUpload 
+              mode="basic" 
+              chooseLabel="Adicionar Imagem" 
+              chooseIcon="pi pi-plus"
+              name="imagens[]" 
+              accept="image/*" 
+              maxFileSize="5000000" 
+              [customUpload]="true"
+              (uploadHandler)="onImageUpload($event)"
+              styleClass="p-button-md p-button-primary">
+            </p-fileUpload>
+          </div>
+
+          <!-- Grid Responsivo de Fotos Existentes (Bootstrap) -->
+          <div class="row g-3">
+            <div *ngFor="let img of imagens" class="col-6 col-sm-4 col-md-3">
+              <div class="card h-100 border rounded-3 position-relative overflow-hidden image-hover-card">
+                <img [src]="img.url" class="card-img-top object-fit-cover" style="height: 160px;" [alt]="img.nome">
+                <div class="p-2 d-flex justify-content-between align-items-center bg-light">
+                  <span class="text-truncate small fw-medium pe-2">{{ img.nome }}</span>
+                  <button pButton icon="pi pi-trash" class="p-button-danger p-button-text p-button-sm" (click)="removerImagem(img)"></button>
+                </div>
+              </div>
+            </div>
+            <!-- Estado Vazio -->
+            <div *ngIf="imagens.length === 0" class="text-center py-5 text-muted col-12">
+              <i class="pi pi-images fs-1 mb-2 d-block text-black-50"></i>
+              Nenhuma imagem adicionada ainda.
+            </div>
+          </div>
+        </p-tabPanel>
+
+        <!-- ABA 2: DOCUMENTOS -->
+        <p-tabPanel header="Documentos" leftIcon="pi pi-file">
+          <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+            <div>
+              <h5 class="fw-semibold mb-1">Documentos Anexados</h5>
+              <p class="text-muted small mb-0">Formatos aceitos: PDF, DOCX. Máx 10MB.</p>
+            </div>
+            <!-- Botão de Adicionar Documento -->
+            <p-fileUpload 
+              mode="basic" 
+              chooseLabel="Adicionar Documento" 
+              chooseIcon="pi pi-file-plus"
+              name="documentos[]" 
+              accept=".pdf,.docx,.doc" 
+              maxFileSize="10000000" 
+              [customUpload]="true"
+              (uploadHandler)="onDocumentUpload($event)"
+              styleClass="p-button-md p-button-secondary">
+            </p-fileUpload>
+          </div>
+
+          <!-- Lista Responsiva de Documentos (Bootstrap e PrimeNG) -->
+          <div class="row g-2">
+            <div *ngFor="let doc of documentos" class="col-12 col-md-6">
+              <div class="d-flex align-items-center justify-content-between p-3 border rounded-3 bg-white hover-shadow-sm transition-all">
+                <div class="d-flex align-items-center text-truncate me-2">
+                  <i class="pi pi-file-pdf text-danger fs-3 me-3" *ngIf="doc.tipo === 'pdf'"></i>
+                  <i class="pi pi-file-word text-primary fs-3 me-3" *ngIf="doc.tipo !== 'pdf'"></i>
+                  <div class="text-truncate">
+                    <p class="mb-0 fw-medium text-truncate" style="max-width: 250px;">{{ doc.nome }}</p>
+                    <small class="text-muted">{{ doc.tamanho }}</small>
+                  </div>
+                </div>
+                <div class="d-flex gap-1">
+                  <button pButton icon="pi pi-download" class="p-button-text p-button-secondary p-button-sm"></button>
+                  <button pButton icon="pi pi-trash" class="p-button-text p-button-danger p-button-sm" (click)="removerDocumento(doc)"></button>
+                </div>
+              </div>
+            </div>
+            <!-- Estado Vazio -->
+            <div *ngIf="documentos.length === 0" class="text-center py-5 text-muted col-12">
+              <i class="pi pi-folder-open fs-1 mb-2 d-block text-black-50"></i>
+              Nenhum documento anexado ainda.
+            </div>
+          </div>
+        </p-tabPanel>
+
+      </p-tabView>
+    </div>
+  </div>
+</div>

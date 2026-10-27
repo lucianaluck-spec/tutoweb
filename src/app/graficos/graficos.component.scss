@@ -1,0 +1,22 @@
+/* Customização do Select do PrimeNG para ficar idêntico ao Bootstrap */
+::ng-deep .custom-select.p-select {
+  border: 1px solid #dee2e6 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+::ng-deep .custom-select.p-select:focus-within {
+  border-color: #0d6efd !important;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15) !important;
+}
+
+/* Garante o alinhamento centralizado do gráfico */
+.chart-container {
+  min-height: 300px;
+}
+
+/* Ajustes finos para legendas do gráfico caso queira forçar via CSS */
+::ng-deep .p-chart {
+  display: inline-block;
+}

@@ -1,0 +1,58 @@
+
+  <div class=" " style="background-color: #000;">
+    <div class="title-header">
+
+      <a href="#">
+        <h1 class="titulo">Familia Turchetta no Brasil</h1>
+      </a>
+    </div>
+  </div>
+  <div class="login-bg d-flex align-items-center justify-content-center vh-100"
+         style="background-image: url('/assets/img/imigracao.jpg')">
+    <div class="login-card shadow-lg p-4">
+
+      <div class="text-center mb-4">
+        <h2 class="fw-bold">Bem-vindo</h2>
+        <small class="text-muted">Entre na sua conta</small>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="login()">
+
+        <!-- Email -->
+        <div class="mb-3 p-inputgroup">
+          <span class="p-inputgroup-addon">
+            <i class="pi pi-envelope"></i>
+          </span>
+          <input pInputText type="email" formControlName="email" placeholder="Email" 
+          />
+        </div>
+
+        <!-- Senha -->
+        <div class="mb-3">
+          <p-password formControlName="password" placeholder="Senha" [toggleMask]="true" [feedback]="false"
+             >
+          </p-password>
+        </div>
+
+        <!-- Opções -->
+        <div class="d-flex justify-content-between mb-3">
+          <div>
+            <input type="checkbox" id="remember" />
+            <label for="remember" class="ms-1 small">Lembrar</label>
+          </div>
+          <a href="#" class="small text-decoration-none">Esqueceu?</a>
+        </div>
+
+        <!-- Botão -->
+        <button pButton type="submit" label="Entrar" class="w-100 login-btn"></button>
+
+      </form>
+
+      <div class="text-center mt-3">
+         <p-button label="Pertence a familia? Cadastre-se aqui" 
+            (click)="irParaCadastro()"  class="p-button-info"/>
+       
+      </div>
+
+    </div>
+  </div>

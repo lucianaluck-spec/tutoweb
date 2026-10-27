@@ -1,0 +1,117 @@
+<!-- 🔝 TOPO FIXO -->
+<div class="header shadow">
+    <a href="#">
+        <h4 class="titulo">Familia Turchetta no Brasil</h4>
+    </a>
+
+</div>
+
+<div class="container main-content">
+    <!-- 👤 AVATAR + TEXTO -->
+    <div class="row align-items-center avatar-section shadow-sm p-3 mb-4 bg-white rounded">
+
+        <div class="col-md-4 text-center">
+            <img [src]="imgRecourseGeracao1" class="avatar">
+            <img [src]="imgRecourseConjugeGeracao1" class="avatar">
+        </div>
+
+        <div class="col-md-8">
+            <h5>{{nomeAtualGeracao1}}</h5>
+            <p>Conjuge {{nomeConjugeGeracao1}}</p>
+        </div>
+
+    </div>
+
+    <div class="card-body">
+        <div class="card flex flex-column align-items-center justify-content-center">
+            <div class="mb-3">
+
+                <p-button icon="pi pi-backward" title="Anterior" (click)="anterior()" class="mr-2">
+                </p-button>
+                {{grupo.descricao}}
+                <p-button icon="pi pi-forward" title="Proximo" (click)="proximo()">
+                </p-button>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- 🎞 CARROSSEL -->
+    <div class="container py-5">
+
+        <h3 class="text-center mb-4 fw-bold">
+            {{totalIntegrantes}} Integrantes <span class="custom-tooltip" data-tooltip="Registro atualizado pelo próprio
+integrante"> Cadastrados</span> e <span class="custom-tooltip" data-tooltip="Registro não atualizado, inserido no sistema
+para composição da arvore genealógica,
+aguardando a atualização pelo próprio
+integrante ou do seu descendente.">Pré-Cadastrados</span>
+        </h3>
+        <p-carousel [value]="images" [numVisible]="5" [numScroll]="1" [circular]="false"
+            [responsiveOptions]="responsiveOptions">
+            <ng-template let-image pTemplate="item">
+                <div class="border-1 surface-border border-round m-2 p-3">
+                    <div class="mb-6">
+                        <div class="relative mx-auto">
+                            <img [src]="image.previewImageSrc" [alt]="image.alt" [title]="image.ancestral"
+                                class="avatar2" />
+                            <!--     <img [src]="image.previewImageSrcConjuge" [alt]="image.nomeAtual"
+                             width="120px"  class="img-circle"  *ngIf="image.origem !== 'semconjuge'" />
+                        -->
+
+                        </div>
+                    </div>
+                    <div class="mb-6 font-medium">
+                        {{ image.title }}
+                    </div>
+                    <div class="mb-6 font-medium">
+                        {{ image.datas }}
+                    </div>
+
+                </div>
+            </ng-template>
+        </p-carousel>
+    </div>
+
+</div>
+
+<!-- 🔘 BOTÕES -->
+<div class="container mt-4">
+    <div class="row g-3">
+
+        <div class="col-12 col-md-6">
+            <p-button label="Faço parte desta geração e gostaria de incluir meus dados" [rounded]="true"
+                class="btn-pertence" (click)="chamarFormulario(1)" />
+
+        </div>
+
+        <div class="col-12 col-md-6">
+            <p-button label="Não encontrei a geração mas reconheco-me como familiar" [rounded]="true"
+                severity="contrast" (click)="chamarFormulario(2)" />
+
+        </div>
+
+    </div>
+</div>
+
+<p-dialog 
+    [(visible)]="exibirDialog"
+    [modal]="true" 
+    [style]="{ width: '50rem' }" 
+    [draggable]="false" [resizable]="false"
+    [closable]="true" 
+    [maximizable]="true" (onHide)="fecharDialog()" 
+    styleClass="dialog-custom">
+
+    
+    <app-formcadastro [modo]="modo" [geracao]="grupo" [ancestrais]="ancestrais" (salvarEvent)="salvar()"
+        (cancelarEvent)="fecharDialog()" [iniciaDialog]="true" />
+    
+</p-dialog>
+
+
+<p-dialog [(visible)]="exibirDialogSem" [modal]="true" [style]="{ width: '50rem' }" [draggable]="false"
+    [resizable]="false" [closable]="true" [maximizable]="true" (onHide)="fecharDialog()" styleClass="dialog-custom">
+   
+        <app-formcadastrosem (salvarEvent)="salvar()" (cancelarEvent)="fecharDialogSem()" />
+   
+</p-dialog>

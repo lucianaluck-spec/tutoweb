@@ -1,0 +1,77 @@
+<div class="w-100 d-flex flex-column align-items-center">
+
+  <img src="/assets/img/avatar_indefinido.png" class="avatar">
+  <p-fileUpload mode="basic" name="demo[]" chooseIcon="pi pi-upload"
+                                    url="https://www.primefaces.org/cdn/api/upload.php"
+                                     accept="image/*"
+                                    maxFileSize="1000000"  chooseLabel="Avatar"
+                                    [auto]="true" >
+                                </p-fileUpload>
+
+  
+</div>
+
+<form [formGroup]="form">
+  
+  <div class="row g-3 mt-2">
+    <div class="col-md-6">
+      <label>Nome Completo</label>
+
+      <input type="text" pInputText formControlName="nomeAtual" class="w-100"
+      (input)="converterMaiusculo('nomeAtual')">
+    </div>
+    <div class="col-md-6">
+      <label>Conjuge</label>
+
+      <input type="text" pInputText formControlName="nomeConjugeAtual" class="w-100"
+      (input)="converterMaiusculo('nomeConjugeAtual')">
+    </div>
+    <div class="col-md-6">
+      <label>Sexo</label>
+
+      <p-select id="sexo" formControlName="sexo" optionValue="value" optionLabel="label" [options]="sexos"
+        placeholder="Selecione">
+      </p-select>
+    </div>
+    <div class="col-md-6">
+      <label>Nascimento</label>
+
+      <input pInputText id="dataNascimento" formControlName="dataNascimento" 
+            type="date" />
+    </div>
+
+    <div class="col-md-6">
+      <label>Telefone</label>
+
+      <input type="text" pInputText formControlName="telefone" class="w-100"
+       [invalid]="form.get('nome')?.invalid && form.get('nome')?.touched">
+    </div>
+
+    <div class="col-md-6">
+      <label>Email</label>
+
+      <input type="email" pInputText formControlName="email" class="w-100"
+       >
+        @if(campoInvalido('email')) {
+            <small class="text-danger">
+                Email obrigatório.
+            </small>
+          }
+    </div>
+  </div>
+
+  <div class="row g-3 mt-2">
+    
+  </div>
+
+</form>
+
+<div class="d-flex justify-content-between w-100">
+
+  <button pButton label="Cancelar" icon="pi pi-times" class="p-button-contrast" (click)="cancelar()">
+  </button>
+
+  <button pButton label="Salvar" icon="pi pi-check" class="p-button-info" (click)="salvar()">
+  </button>
+
+</div>

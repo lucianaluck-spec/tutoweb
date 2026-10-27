@@ -1,0 +1,188 @@
+/* --- CORREÇÃO DA ESTRUTURA PRINCIPAL --- */
+.sidebar {
+  width: 260px;
+  background: #111827;
+  color: white;
+  height: 100vh;
+}
+
+.logo {
+  padding: 1.5rem;
+  font-size: 22px;
+  font-weight: 600;
+  color: white;
+}
+
+.menu-toggle, .close-btn {
+  display: none; 
+}
+
+/* O container controla a visibilidade no mobile */
+.sidebar-container {
+  position: relative;
+  width: 250px;
+  height: 100vh;
+  overflow: hidden; 
+  transition: transform 0.3s ease-in-out;
+  z-index: 100;
+}
+
+.sidebar-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #23223E; 
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.7); 
+  z-index: 1;
+}
+
+.sidebar-content {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.15); 
+  backdrop-filter: blur(3px); 
+  -webkit-backdrop-filter: blur(3px); 
+  border-right: 1px solid rgba(255, 255, 255, 0.2); 
+  color: antiquewhite;
+  overflow-y: auto; 
+  overflow-x: hidden;
+}
+
+.menu-wrapper {
+  padding: 20px 10px 20px 10px; 
+}
+
+/* --- BLINDAGEM COMPLETA CONTRA BORDAS PRETAS (PRIMENG MODERN v18/v21) --- */
+:host ::ng-deep {
+  /* Alvo principal: o componente e suas listas nativas */
+  .p-panelmenu, 
+  .p-panelmenu-panel,
+  .p-panelmenu-header,
+  .p-panelmenu-content,
+  .p-panelmenu-submenu,
+  .p-panelmenu-item,
+  ul, li {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Aplica o design elegante em formato de pílulas para os links do menu */
+  .p-panelmenu-header-content,
+  .p-panelmenu-item-content,
+  .p-menuitem-link {
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    border: none !important;
+    outline: none !important;
+    transition: all 0.2s ease-in-out !important;
+    border-left: 4px solid transparent !important;
+    padding: 0.75rem 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    text-decoration: none !important;
+    border-radius: 8px !important; /* Deixa os itens arredondados */
+    margin: 4px 0 !important; /* Espaçamento sutil vertical entre os itens */
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08) !important;
+      color: #ffffff !important;
+    }
+  }
+
+  /* Ícones e setas expansíveis do PrimeNG */
+  .p-menuitem-icon, 
+  .p-panelmenu-icon,
+  .p-panelmenu-toggle-icon {
+    color: rgba(255, 255, 255, 0.6) !important;
+    margin-right: 12px !important;
+    border: none !important;
+    outline: none !important;
+  }
+
+  /* --- ESTILO DOS ITENS ATIVOS E SELECIONADOS --- */
+  .p-panelmenu-header-active .p-panelmenu-header-content,
+  .p-menuitem-link-active,
+  .p-highlight > .p-panelmenu-item-content,
+  [aria-expanded="true"] > .p-panelmenu-header-content {
+    color: #ffffff !important;
+    font-weight: bold !important;
+    background: rgba(255, 255, 255, 0.2) !important; 
+    border-left: 4px solid #ffffff !important; /* Barra lateral branca premium */
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    
+    span, i, .p-panelmenu-icon, .p-menuitem-icon, .p-panelmenu-toggle-icon {
+      color: #ffffff !important; 
+    }
+  }
+}
+
+/* --- ESTILOS RESPONSIVOS (MOBILE) --- */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 90; 
+    background: #23223E;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .close-btn {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .sidebar-container {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 280px; 
+    height: 100vh;
+    z-index: 1000 !important; 
+    transform: translateX(-100%) !important; 
+    box-shadow: none;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .sidebar-container.open {
+    transform: translateX(0) !important;
+    box-shadow: 8px 0 24px rgba(0, 0, 0, 0.3); 
+  }
+}
+
+/* --- ESTILIZAÇÃO DA BARRA DE ROLAGEM ELEGANTE --- */
+.sidebar-content::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+.sidebar-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}

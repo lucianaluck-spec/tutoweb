@@ -1,0 +1,63 @@
+<div class="card-img-top" style="background-color: #000;">
+  <div class="title-header">
+
+    <h1 class="titulo">Familia Turchetta no Brasil</h1>
+    <button pButton label="Olá! Faça seu Login ou Cadastre-se" (click)="login()" class="login">
+      
+    </button>
+      
+   
+  </div>
+
+  <video controls autoplay="true"  width="100%;">
+    <source src="assets/video/homenovo.mp4" type="video/mp4" />
+
+
+    Your browser does not support the video element.
+  </video>
+
+</div>
+
+<div class="card card-body blur mx-3 mx-md-4 pb-0">
+  <div class="info">
+
+    <div class="content-wrapper">
+
+      <p class="conteudo">{{totalPre}}</p>
+      <p> familiares pré-cadastrados</p>
+    </div>
+    <div class="content-wrapper">
+
+      <p class="conteudo">{{totalCadastrados}}</p>
+      <p> familiares cadastrados</p>
+    </div>
+    <div class="content-wrapper">
+
+      <p class="conteudo">{{totalFotos}}</p>
+      <p>fotos catalogadas</p>
+    </div>
+    <div class="content-wrapper">
+
+      <p class="conteudo">{{totalDocto}}</p>
+      <p> Documentos registrados</p>
+    </div>
+
+    <div class="content-wrapper">
+      <p class="conteudo">Variantes do Sobrenome</p>
+      <div class="marquee-container">
+        <div class="marquee-content">
+          <!-- Usando a sintaxe moderna @for (Angular 17+) -->
+           @if (textos) {
+          @for (texto of textos; track $index) {
+          <span class="marquee-item">{{ texto }}</span>
+          }
+        }
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- -------   END PRE-FOOTER 2 - simple social line w/ title & 3 buttons    -------- -->
+</div>

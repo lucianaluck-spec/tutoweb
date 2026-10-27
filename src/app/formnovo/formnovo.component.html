@@ -1,0 +1,109 @@
+<div class="title-banner d-flex align-items-center justify-content-between p-3 text-white position-relative">
+    <div class="z-2">
+        <h4 class="fw-bold m-0 display-12">Cadastro de um novo Integrante</h4>
+        <p class="mb-0 opacity-85 mt-1 d-none d-sm-block">Aqui voce pode cadastrar um novo integrante indicando para
+            participação na familia</p>
+    </div>
+
+</div>
+<div class="container-dash mt-5">
+
+    <div class="row g-3 mt-2">
+        <div class="col-md-6">
+            <img [src]="imgRecourse" class="avatar" />
+            <p-fileUpload mode="basic" name="demo[]" chooseIcon="pi pi-upload"
+                url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000"
+                chooseLabel="Avatar" [auto]="true">
+            </p-fileUpload>
+        </div>
+
+        <div class="col-md-6">
+            <img [src]="imgRecourseConjuge" class="avatar" />
+            <p-fileUpload mode="basic" name="demo[]" chooseIcon="pi pi-upload"
+                url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000"
+                chooseLabel="Avatar Conjuge" [auto]="true">
+            </p-fileUpload>
+        </div>
+    </div>
+</div>
+
+<form [formGroup]="form">
+    <div class="container-dash mt-5">
+        <div class="row g-3 mt-2">
+            <div class="col-md-6">
+                <label>Nome Completo</label>
+
+                <input type="text" pInputText formControlName="nomeAtual" class="w-100" appUppercase
+                    (input)="converterMaiusculo('nomeAtual')">
+            </div>
+
+            <div class="col-md-6">
+                <label>Nome Solteiro</label>
+
+                <input type="text" pInputText formControlName="nomeSolteiro" class="w-100" appUppercase
+                    (input)="converterMaiusculo('nomeSolteiro')">
+            </div>
+            <div class="col-md-6">
+                <label>Conjuge</label>
+
+                <input type="text" pInputText formControlName="nomeConjugeAtual" class="w-100" appUppercase
+                    (input)="converterMaiusculo('nomeConjugeAtual')">
+            </div>
+
+            <div class="col-md-6">
+                <label>Conjuge Anterior</label>
+
+                <input type="text" pInputText formControlName="nomeConjugeAnterior" class="w-100" appUppercase
+                    (input)="converterMaiusculo('nomeConjugeAnterior')">
+            </div>
+
+            <div class="col-md-4">
+                <label>Sexo</label>
+
+                <p-select id="sexo" formControlName="sexo" optionValue="value" optionLabel="label"
+                    [options]="sexoOptions" placeholder="Selecione">
+                </p-select>
+            </div>
+            <div class="col-md-4">
+                <label>Nascimento</label>
+
+                <input pInputText id="dataNascimento" formControlName="dataNascimento" type="date" />
+            </div>
+
+            <div class="col-md-4">
+                <label>Signo:</label>
+
+                <p-select id="signo" formControlName="idSigno" optionValue="id" [filter]="true" filterBy="nome"
+                    optionLabel="nome" [options]="signos" placeholder="Selecione" [showClear]="true" readonly="true" />
+
+            </div>
+
+            <div class="col-md-6">
+                <label>Telefone</label>
+
+                <input type="text" pInputText formControlName="telefone" class="w-100">
+            </div>
+
+            <div class="col-md-6">
+                <label>Email</label>
+
+                <input type="email" pInputText formControlName="email" class="w-100">
+
+            </div>
+
+
+        </div>
+    </div>
+
+</form>
+
+
+<div class="d-flex justify-content-between w-100">
+
+    <button pButton label="Cancelar" icon="pi pi-times" class="p-button-contrast" (click)="cancelar()">
+    </button>
+
+    <button pButton label="Salvar" icon="pi pi-check" class="p-button-info" (click)="salvar()">
+    </button>
+
+</div>

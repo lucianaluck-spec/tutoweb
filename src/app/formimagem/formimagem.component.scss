@@ -1,0 +1,150 @@
+/* --- RESET E ESTILIZAÇÃO DAS ABAS MODERNAS DO PRIMENG --- */
+
+/* Remove as bordas pretas e adiciona o espaçamento entre a lista de abas */
+::ng-deep p-tablist {
+  display: block;
+  border-bottom: 2px solid #dee2e6 !important; /* Linha sutil abaixo das abas */
+  margin-bottom: 1.5rem !important;
+}
+
+/* Alinha a lista de abas horizontalmente e remove estilos padrões ruins */
+::ng-deep .p-tablist-tab-links, 
+::ng-deep [role="tablist"] {
+  display: flex !important;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  gap: 8px !important; /* Cria o espaçamento elegante ENTRE as abas */
+  border: none !important;
+}
+
+/* Estiliza cada Aba Individualmente (Botões) */
+::ng-deep p-tab[value], 
+::ng-deep [role="tab"] {
+  all: unset; /* Reseta as bordas pretas e fundos nativos */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.2rem !important;
+  font-weight: 500;
+  color: #6c757d !important; /* Cor do texto padrão Bootstrap */
+  background-color: #f8f9fa !important; /* Fundo cinza claro elegante */
+  border: 1px solid #dee2e6 !important;
+  border-radius: 8px 8px 0 0 !important; /* Bordas arredondadas superiores */
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Efeito Hover (Passar o mouse) */
+::ng-deep p-tab[value]:hover, 
+::ng-deep [role="tab"]:hover {
+  background-color: #e9ecef !important;
+  color: #495057 !important;
+  border-color: #dee2e6 !important;
+}
+
+/* Estado Ativo / Aba Selecionada */
+::ng-deep p-tab[aria-selected="true"],
+::ng-deep .p-tab-active,
+::ng-deep [aria-selected="true"] {
+  color: #fff !important; /* Texto branco */
+  background-color: #0d6efd !important; /* Fundo Azul Bootstrap */
+  border-color: #0d6efd !important;
+}
+
+/* Ícones dentro das abas */
+::ng-deep p-tab i {
+  font-size: 1rem;
+}
+
+/* --- OUTROS AJUSTES DE CARD E GRID --- */
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+.hover-card {
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.hover-card:hover {
+  border-color: #0d6efd !important;
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, 0.05) !important;
+}
+
+/* --- ESTILIZAÇÃO E CURVAS DA GALERIA PRIMENG --- */
+
+/* Remove a borda preta geral do container e adiciona cantos arredondados */
+::ng-deep .p-galleria,
+::ng-deep .p-galleria-content {
+  border: 1px solid #e2e8f0 !important; /* Linha cinza clara e sutil */
+  border-radius: 12px !important;       /* Curva suave e moderna */
+  overflow: hidden !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Remove bordas pretas da área principal da imagem */
+::ng-deep .p-galleria-item-container {
+  border: none !important;
+  background: #f8f9fa !important; /* Fundo cinza bem claro para destacar a foto */
+}
+
+/* Ajusta os botões de navegação (setas de avançar e voltar) */
+::ng-deep .p-galleria-item-prev,
+::ng-deep .p-galleria-item-next {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  color: #334155 !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 50% !important; /* Setas em formato de círculos flutuantes */
+  width: 40px !important;
+  height: 40px !important;
+  transition: all 0.2s ease !important;
+}
+
+::ng-deep .p-galleria-item-prev:hover,
+::ng-deep .p-galleria-item-next:hover {
+  background-color: #ffffff !important;
+  color: #0d6efd !important; /* Destaque azul ao passar o mouse */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* --- CONTAINER DE MINIATURAS (THUMBNAILS) --- */
+
+/* Remove o fundo escuro e as bordas pretas da barra de miniaturas inferior */
+::ng-deep .p-galleria-thumbnail-container {
+  background: #f1f5f9 !important; /* Fundo sutil e limpo */
+  border-top: 1px solid #e2e8f0 !important;
+  padding: 12px !important;
+}
+
+/* Remove bordas brutas dos botões de navegação das miniaturas */
+::ng-deep .p-galleria-thumbnail-prev,
+::ng-deep .p-galleria-thumbnail-next {
+  color: #64748b !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Estiliza cada item de miniatura individual da lista */
+::ng-deep .p-galleria-thumbnail-item {
+  opacity: 0.6;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Dá destaque para a miniatura que está selecionada no momento */
+::ng-deep .p-galleria-thumbnail-item-active {
+  opacity: 1 !important;
+}
+
+/* Arredonda as bordinhas das fotos pequenas (thumbnails) */
+::ng-deep .p-galleria-thumbnail-item img {
+  border-radius: 6px !important;
+  border: 2px solid transparent !important;
+  transition: border-color 0.2s ease;
+}
+
+/* Adiciona borda azul na miniatura ativa */
+::ng-deep .p-galleria-thumbnail-item-active img {
+  border-color: #0d6efd !important;
+}

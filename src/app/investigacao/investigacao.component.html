@@ -1,0 +1,63 @@
+<div class="card-container">
+
+
+    <div class="title-banner d-flex align-items-center justify-content-between p-4  text-white position-relative">
+        <div class="z-2">
+            <h2 class="fw-bold m-0 display-6">Possiveis Familiares</h2>
+            <p class="mb-0 opacity-85 mt-1 d-none d-sm-block">Lista dos possiveis participantes inscritos</p>
+        </div>
+
+    </div>
+
+    <p-table #dt dataKey="id" [value]="records" [lazy]="true" [(selection)]="selectedRecords"
+        (onLazyLoad)="onLazyLoad($event)" [paginator]="true" [rows]="rows" responsiveLayout="stack"
+        [breakpoint]="'960px'" [rowHover]="true" styleClass="p-datatable-striped custom-table"
+        [totalRecords]="totalRecords" [loading]="loading" [rowsPerPageOptions]="[10, 20, 50, 100]" sortMode="multiple"
+        [scrollable]="true" [resizableColumns]="true" [showCurrentPageReport]="true"
+        [multiSortMeta]="[{field: 'nomeAtual', order: 1}]"
+        currentPageReportTemplate="Listando {first} a {last} de {totalRecords} registros">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pResizableColumn pSortableColumn="nomeAtual">Nome<p-sortIcon field="nomeAtual"></p-sortIcon></th>
+                <th pResizableColumn>Ancestral(Pai)</th>
+                <th pResizableColumn class="table-acoes" pSortableColumn="dataNascimento">Data
+                    Nascto<p-sortIcon field="dataNascto"></p-sortIcon>
+                </th>
+
+                <th class="table-acoes">Status</th>
+
+            </tr>
+            <tr>
+                <th>
+
+                </th>
+
+                <th></th>
+                <th class="table-acoes"></th>
+                <th class="table-acoes"></th>
+
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-selectedRecord>
+            <tr>
+
+                <td>{{selectedRecord.nomeAtual}}</td>
+
+                <td>{{selectedRecord.nomeConjugeAtual}}</td>
+                <td class="table-acoes">{{selectedRecord.sexo }}</td>
+                <td class="table-acoes">{{selectedRecord.dataNascimento}}</td>
+
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Total de registros: {{records ? records.length : 0 }}
+            </div>
+        </ng-template>
+
+    </p-table>
+
+</div>

@@ -1,0 +1,362 @@
+<div class="w-100 d-flex flex-column align-items-center">
+
+  <img src="/assets/img/avatar_indefinido.png" class="avatar">
+  <p-fileUpload mode="basic" name="demo[]" chooseIcon="pi pi-upload"
+                                    url="https://www.primefaces.org/cdn/api/upload.php"
+                                     accept="image/*"
+                                    maxFileSize="1000000"  chooseLabel="Avatar"
+                                    [auto]="true" >
+                                </p-fileUpload>
+
+  
+</div>
+               <form [formGroup]="form">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="p-field" *ngIf="editing">
+                                <label for="id">ID</label>
+                                <input type="text" formControlName="id" pInputText id="id" readonly />
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-field" *ngIf="editing">
+                                <label for="nroCadastro">Código</label>
+                                <input type="text" formControlName="nroCadastro" pInputText id="nroCadastro"
+                                    readonly/>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-field" *ngIf="editing">
+                                <label for="sequencia">Sequencia</label>
+                                <input type="text" formControlName="sequencia" pInputText id="sequencia"
+                                    readonly />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <p-panel header="Avatar" class="card flex justify-content-center">
+                        <div class="row">
+                            <div class="col-2" style="text-align: center;">
+                                <img [src]="imgRecourse" width="80px" />
+
+                            </div>
+                            <div class="col-4">
+                                <p-fileUpload mode="basic" name="demo[]" chooseIcon="pi pi-upload"
+                                    url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*"
+                                    maxFileSize="1000000" (onUpload)="onUpload($event)" chooseLabel="Próprio"
+                                    [auto]="true">
+                                </p-fileUpload>
+                                <button pButton pRipple pTooltip="Apaga a Foto" tooltipPosition="top"
+                                    icon="pi pi-eye-slash"
+                                    *ngIf="editing && imgRecourse !== '/assets/img/default-profile.png'"
+                                    class="p-button-sm p-button-rounded p-button-outlined p-button-danger"
+                                    (click)="excluiFoto()">
+                                </button>
+
+                            </div>
+                            <div class="col-2" style="text-align: center;">
+                                <img [src]="imgRecourseConjuge" width="80px" />
+                            </div>
+
+                            <div class="col-4">
+                                <p-fileUpload mode="basic" name="demo2[]" chooseIcon="pi pi-upload"
+                                    url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*"
+                                    maxFileSize="1000000" (onUpload)="onUploadConjuge($event)" chooseLabel="Conjuge"
+                                    [auto]="true">
+                                </p-fileUpload>
+                                <button pButton pRipple pTooltip="Apaga a Foto Conjuge" tooltipPosition="top"
+                                    icon="pi pi-eye-slash"
+                                    *ngIf="editing && imgRecourseConjuge !== '/assets/img/default-profile.png'"
+                                    class="p-button-sm p-button-rounded p-button-outlined p-button-danger"
+                                    (click)="excluiFotoConjuge()">
+                                </button>
+
+                            </div>
+                        </div>
+                    </p-panel>
+                    <div class="p-field">
+                        <label for="nomeAtual">Nome Atual</label>
+                        <input id="nomeAtual" type="text" formControlName="nomeAtual" pInputText required
+                            class="to-upper-case" autofocus 
+                             />
+                        
+                    </div>
+                    <div class="p-field">
+                        <label for="nomeSolteiro">Nome Solteiro</label>
+                        <input id="nomeSolteiro" type="text" formControlName="nomeSolteiro" pInputText
+                            class="to-upper-case" autofocus  />
+                    </div>
+
+                    <div class="p-field">
+                        <label for="conjugeAtual">Conjuge</label>
+                        <input id="conjugeAtual" type="text" formControlName="nomeConjugeAtual" pInputText
+                            class="to-upper-case" autofocus (keydown.enter)="focusNext($event)" />
+
+                    </div>
+                    <div class="p-field">
+                        <label for="dataNascimento">Data Nascimento</label>
+                        <input pInputText id="dataNascimento" formControlName="dataNascimento" type="date"
+                            (blur)="buscaSigno()" (keydown.enter)="focusNext($event)" />
+
+                    </div>
+                    <div class="p-field">
+                        <label for="signo">Signo</label>
+                        <p-select id="signo" formControlName="idSigno" optionValue="id" [filter]="true"
+                            filterBy="nome" optionLabel="nome" [options]="signos" placeholder="Selecione"
+                            [showClear]="true" readonly="true" />
+
+                        
+                    </div>
+
+                    <div class="p-field">
+                        <label for="dataFalecimento">Data Falecimento</label>
+                        <input pInputText id="dataFalecimento" formControlName="dataFalecimento" type="date"
+                            (keydown.enter)="focusNext($event)" />
+
+                    </div>
+
+                    <div class="p-field">
+                        <label for="sexo">Sexo</label>
+                        <p-select id="sexo" formControlName="sexo" [options]="sexoOptions" placeholder="Selecione"
+                            optionValue="code" optionLabel="name" [showClear]="true" [filter]="true"
+                            filterBy="name,code" />
+                      
+
+                    </div>
+                    <label for="telefone">Telefone</label>
+                    <p-inputMask pInputText mask="(99) 99999-9999" id="telefone" formControlName="telefone"
+                        (keydown.enter)="focusNext($event)">
+                    </p-inputMask>
+
+                    <div class="p-field">
+                        <label for="email">Email</label>
+                        <input pInputText email id="email" type="text" formControlName="email"  />
+
+                    </div>
+                    <div class="p-field">
+                        <label for="conjugeAnterior">Conjuge Anterior</label>
+                        <input id="conjugeAnterior" type="text" formControlName="nomeConjugeAnterior" pInputText
+                            class="to-upper-case" autofocus (keydown.enter)="focusNext($event)" />
+
+                    </div>
+
+                    <p-panel header="Localização Atual">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="p-field">
+                                    <label for="pais">País</label>
+                                    <input id="pais" type="text" formControlName="pais" pInputText class="to-upper-case"
+                                        autofocus (blur)="loadEstados(1)" (keydown.enter)="focusNext($event)" />
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="p-field">
+                                    <label for="estado">Estado</label>
+
+                                    <p-select #estadoDrop id="estado" formControlName="estado" [options]="estados"
+                                        placeholder="Selecione" [showClear]="true" (onChange)="loadLocalizacoes(1)"
+                                        >
+                                    </p-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-field">
+
+                            <label for="idLocalizacaoAtual">Local:</label>
+                            <div class="p-inputgroup">
+                                <p-select id="idLocalizacaoAtual" formControlName="idLocalizacaoAtual"
+                                    optionValue="id" optionLabel="nomeEstadoPais" [options]="localizacoes"
+                                    placeholder="Selecione" [showClear]="true" [filter]="true"
+                                    filterBy="nomeEstadoPais">
+                                </p-select>
+                                <button pButton pRipple icon="pi pi-plus-circle" (click)="incluiLocalizacaoOnClick(1)"
+                                    class="p-button-sm mr-1">
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </p-panel>
+
+                    <p-panel header="Localização Origem">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="p-field">
+                                    <label for="paisOrigem">País</label>
+                                    <input id="paisOrigem" type="text" formControlName="paisOrigem" pInputText
+                                        class="to-upper-case" (blur)="loadEstados(2)" autofocus="true"
+                                        (keydown.enter)="focusNext($event)" />
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="p-field">
+                                    <label for="estadoOrigem">Estado</label>
+                                    <p-select id="estadoOrigem" formControlName="estadoOrigem"
+                                        [options]="estadosOrigem" placeholder="Selecione" [showClear]="true"
+                                        (onChange)="loadLocalizacoes(2)" autofocus="true">
+                                    </p-select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-field">
+                            <label for="idLocalizacaoOrigem">Local:</label>
+                            <div class="p-inputgroup">
+                                <p-select id="idLocalizacaoOrigem" formControlName="idLocalizacaoOrigem"
+                                    optionValue="id" optionLabel="nomeEstadoPais" [options]="localizacoesOrigem"
+                                    placeholder="Selecione" [showClear]="true" [filter]="true"
+                                    filterBy="nomeEstadoPais">
+                                </p-select>
+                                <button pButton pRipple icon="pi pi-plus-circle" (click)="incluiLocalizacaoOnClick(2)"
+                                    class="p-button-sm mr-1">
+                                </button>
+
+                            </div>
+                        </div>
+                    </p-panel>
+
+
+                    <div class="p-field">
+                        <label for="idProfissao">Profissão</label>
+                        <div class="p-inputgroup">
+
+
+                            <p-select id="idProfissao" formControlName="idProfissao" optionValue="id"
+                                optionLabel="descricao" [options]="profissoes" placeholder="Selecione"
+                                [showClear]="true" variant="filled" readonly>
+                            </p-select>
+
+                            <button pButton pRipple icon="pi pi-info-circle"
+                                (click)="viewIntroducaoOnClick('PROFISSAO')" class="p-button-sm mr-1">
+                            </button>
+
+                            <button pButton pRipple icon="pi pi-filter" (click)="filterProfissaoOnClick()"
+                                class="p-button-sm mr-1">
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="p-field">
+                        <label for="religiao">Religião</label>
+                        <div class="p-inputgroup">
+                            <p-select id="religiao" formControlName="idReligiao" optionValue="id" optionLabel="nome"
+                                [options]="religioes" placeholder="Selecione" [showClear]="true" [filter]="true"
+                                filterBy="nome" >
+                            </p-select>
+                            <button pButton pRipple icon="pi pi-info-circle" (click)="viewIntroducaoOnClick('RELIGIAO')"
+                                class="p-button-sm mr-1">
+                            </button>
+                            <button pButton pRipple icon="pi pi-filter" (click)="viewInformacaoOnClick('RELIGIAO')"
+                                class="p-button-sm mr-1">
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="p-field">
+                        <label for="politica">Ideologia Politica</label>
+                        <div class="p-inputgroup">
+                            <p-select id="politica" formControlName="idPolitica" optionValue="id"
+                                optionLabel="descricao" [options]="politicas" [filter]="true" filterBy="descricao"
+                                placeholder="Selecione" [showClear]="true" >
+                            </p-select>
+                            <button pButton pRipple icon="pi pi-info-circle" (click)="viewIntroducaoOnClick('POLITICA')"
+                                class="p-button-sm mr-1">
+                            </button>
+                            <button pButton pRipple icon="pi pi-filter" (click)="viewInformacaoOnClick('POLITICA')"
+                                class="p-button-sm mr-1">
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="p-field">
+                        <label for="time">Time de Futebol</label>
+                        <div class="p-inputgroup">
+                            <p-select id="time" formControlName="idTimeFutebol" optionValue="id" [filter]="true"
+                                filterBy="nomeEstado" optionLabel="nomeEstado" [options]="timesFutebol"
+                                placeholder="Selecione" [showClear]="true" >
+                            </p-select>
+
+                            <button pButton pRipple icon="pi pi-info-circle" (click)="viewIntroducaoOnClick('TIME')"
+                                class="p-button-sm mr-1">
+                            </button>
+
+                            <button pButton pRipple icon="pi pi-filter" (click)="viewInformacaoOnClick('TIME')"
+                                class="p-button-sm mr-1">
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="p-field">
+                        <label for="estilo">Genero Musical</label>
+                        <div class="p-inputgroup">
+                            <p-select id="estilo" formControlName="idEstiloMusical" optionValue="id" [filter]="true"
+                                filterBy="nome" optionLabel="nome" [options]="estilosMusicais" placeholder="Selecione"
+                                [showClear]="true" >
+                            </p-select>
+
+                            <button pButton pRipple icon="pi pi-info-circle" (click)="viewIntroducaoOnClick('Genero')"
+                                class="p-button-sm mr-1">
+                            </button>
+
+                            <button pButton pRipple icon="pi pi-filter"
+                                (click)="viewInformacaoOnClick('GENERO_MUSICAL')" class="p-button-sm mr-1">
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="p-field">
+                        <label for="temperamento">Temperamento</label>
+                        <div class="p-inputgroup">
+                            <p-select id="temperamento" formControlName="idTemperamento" optionValue="id"
+                                [filter]="true" filterBy="descricao" optionLabel="descricao" [filter]="true"
+                                filterBy="descricao" [options]="temperamentos" placeholder="Selecione"
+                                [showClear]="true" >
+
+                            </p-select>
+                            <button pButton pRipple icon="pi pi-info-circle"
+                                (click)="viewIntroducaoOnClick('TEMPERAMENTO')" class="p-button-sm mr-1">
+                            </button>
+
+                            <button pButton pRipple icon="pi pi-filter" (click)="viewInformacaoOnClick('TEMPERAMENTO')"
+                                class="p-button-sm mr-1">
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="p-field">
+                        <label for="habitoAlimentar">Habito Alimentar</label>
+                        <div class="p-inputgroup">
+                            <p-select id="habitoAlimentar" formControlName="idHabitoAlimentar" optionValue="id"
+                                [filter]="true" filterBy="descricao" optionLabel="descricao" [filter]="true"
+                                filterBy="descricao" [options]="habitosAlimentar" placeholder="Selecione"
+                                [showClear]="true" autoShowPanelOnPrintableCharacterKeyDown="false">
+
+                            </p-select>
+                            <button pButton pRipple icon="pi pi-info-circle"
+                                (click)="viewIntroducaoOnClick('HABITO_ALIMENTAR')" class="p-button-sm mr-1">
+                            </button>
+                            <button pButton pRipple icon="pi pi-filter"
+                                (click)="viewInformacaoOnClick('HABITO_ALIMENTAR')" class="p-button-sm mr-1">
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+           
+
+<div class="d-flex justify-content-between w-100">
+
+  <button pButton label="Cancelar" icon="pi pi-times" class="p-button-contrast" (click)="cancelar()">
+  </button>
+
+  <button pButton label="Salvar" icon="pi pi-check" class="p-button-info" (click)="salvar()">
+  </button>
+
+</div>

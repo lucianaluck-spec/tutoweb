@@ -1,0 +1,86 @@
+<div class="container-dash mt-1">
+
+    <div class="title-banner d-flex align-items-center justify-content-between text-white position-relative">
+        <div class="z-2">
+            <h4 class="fw-bold m-0 display-12">Ancestrais</h4>
+
+        </div>
+
+    </div>
+    <div class="conteudo-centralizado shadow-sm p-3 mb-4 bg-white rounded">
+
+        <div class="imagem">
+            <img [src]="imgRecourseAncestral" class="avatar" />
+
+        </div>
+        <div class="imagem">
+            <img [src]="imgRecourseConjugeAncestral" class="avatar" />
+        </div>
+
+        <div class="texto">
+            <label>{{ ancestral.nomeAtual}}</label><br />
+            <label>Código {{ ancestral.nroCadastro}}</label><br />
+            <label>Conjuge {{ancestral.nomeConjugeAtual}}</label>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="container-dash mt-1">
+    <div class="conteudo-centralizado shadow-sm p-3 mb-4 bg-white rounded">
+        <div class="imagem">
+            <img [src]="imgRecourse" class="avatar" />
+        </div>
+        <div class="imagem">
+            <img [src]="imgRecourseConjuge" class="avatar" />
+        </div>
+
+        <div class="texto">
+            <label>{{ integrante.nomeAtual}}</label><br />
+            <label>Código {{ integrante.nroCadastro}}</label><br />
+            <label>{{integrante.grupo!.descricao!}}</label><br />
+            <label>Conjuge {{integrante.nomeConjugeAtual}}</label>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container-dash mt-1">
+   <div class="title-banner d-flex align-items-center justify-content-between text-white position-relative">
+        <div class="z-2">
+            <h4 class="fw-bold m-0 display-12">Descendentes</h4>
+        </div>
+
+    </div>
+        <!-- 🎞 CARROSSEL -->
+        <div class="container py-5">
+
+            <p-carousel [value]="images" [numVisible]="5" [numScroll]="1" [circular]="false"
+                [responsiveOptions]="responsiveOptions">
+                <ng-template let-image pTemplate="item">
+                    <div class="border-1 surface-border border-round m-2 p-3">
+                        <div class="mb-6">
+                            <div class="imagem mx-auto">
+                                <img [src]="image.previewImageSrc" [alt]="image.alt" [title]="image.ancestral"
+                                    class="avatar" />
+
+                            </div>
+                        </div>
+                        <div class="mb-6 font-medium">
+                            {{ image.title }}
+                        </div>
+                        <div class="mb-6 font-medium">
+                            {{ image.datas }}
+                        </div>
+
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+
+    
+</div>

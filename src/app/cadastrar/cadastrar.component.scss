@@ -1,0 +1,133 @@
+.title-header {
+    display: flex;
+    position: relative;
+    top: 20px;
+    background-color: #000;
+
+   // margin: 20px;
+
+    width: 100%;
+    border: none;
+
+    /* display: grid;
+  grid-template-columns: 3fr 1fr;
+*/
+}
+
+.titulo {
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    /* font-family: 'Roboto Slab', 'Arial Narrow', Arial, sans-serif; */
+    position: relative;
+}
+
+
+/* HEADER FIXO */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(135deg, #232527, #596263);
+  //background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: white;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  z-index: 1000;
+}
+
+/* ESPAÇO PARA NÃO FICAR SOB O HEADER */
+.main-content {
+  margin-top: 80px;
+}
+
+/* AVATAR */
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.avatar2 {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+/* CARROSSEL */
+.carousel-img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .avatar-section {
+    text-align: center;
+  }
+
+  .avatar {
+    margin-bottom: 10px;
+  }
+}
+
+
+.btn-pertence {
+  background: linear-gradient(90deg, #7f7f7f, #e5e5e5);
+  border: none;
+}
+
+.btn-pertence:hover {
+  opacity: 0.9;
+  background: linear-gradient(90deg, #7f7f7f, #e5e5e5);
+}
+
+.custom-tooltip {
+  position: relative;
+  border-bottom: 1px dashed #000;
+}
+
+/* O "balão" do título */
+.custom-tooltip:hover::after {
+  content: attr(data-tooltip); /* Pega o texto do atributo data-tooltip */
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  white-space: pre;
+  font-size: 14px;
+  z-index: 1;
+}
+
+.avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 2px solid #393E40;
+  object-fit: cover;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+label {
+  margin-bottom: 6px;
+  display: block;
+  font-weight: 600;
+}
+
+.btnNavega {
+  background-color:#3A3F40;
+    border: 1px solid #3A3F40;
+}
+
+::ng-deep .p-inputtext,
+::ng-deep .p-password input {
+  width: 100%;
+  border-radius: 12px;
+}

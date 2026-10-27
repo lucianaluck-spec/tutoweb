@@ -1,0 +1,32 @@
+<button class="menu-toggle" (click)="toggleMenu()">
+  ☰
+</button>
+<div class="sidebar-container" [class.open]="isMenuOpen">
+  <!-- Camada da imagem de fundo -->
+  <div class="sidebar-bg"></div>
+
+  <!-- Conteúdo da sua sidebar (Links, menus, etc.) -->
+  <div class="sidebar-content">
+    <button class="close-btn" (click)="toggleMenu()">&times;</button>
+
+    <div class="logo">
+      <img src="/assets/img/logo.png">TUTO WEB
+    </div>
+    <div class="menu-wrapper">
+      <p-panelMenu [model]="items" styleClass="w-full"></p-panelMenu>
+    </div>
+
+  </div>
+</div>
+
+<!--
+<div class="sidebar">
+
+  <div class="logo">
+      TUTO WEB
+  </div>
+
+  <p-panelMenu [model]="items" styleClass="w-full"></p-panelMenu>
+
+</div>
+-->

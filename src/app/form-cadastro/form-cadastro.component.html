@@ -1,0 +1,840 @@
+<div #topoDoFormulario></div>
+<div class="container-dash mt-1">
+    <div class="title-banner d-flex align-items-center justify-content-between p-3 text-white position-relative">
+        <div class="z-2">
+            <h4 class="fw-bold m-0 display-12">Seus Dados Pessoais</h4>
+            <p class="mb-0 opacity-85 mt-1 d-none d-sm-block">Mantenha suas informações pessoais atualizadas</p>
+        </div>
+
+    </div>
+   
+
+    <div class="conteudo-centralizado shadow-sm p-3 mb-4 bg-white rounded">
+        <div class="avatar-container">
+            <div class="imagem">
+                <img [src]="imgRecourse" class="avatar" />
+            </div>
+            <div class="btn-upload">
+                <p-fileUpload mode="basic" name="demo[]" chooseIcon="pi pi-upload"
+                    url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000"
+                    chooseLabel="Alterar" [auto]="true">
+                </p-fileUpload>
+            </div>
+        </div>
+        <div class="avatar-container">
+            <div class="imagem">
+                <img [src]="imgRecourseConjuge" class="avatar" />
+            </div>
+            <div class="btn-upload">
+                <p-fileUpload mode="basic" name="demo[]" chooseIcon="pi pi-upload"
+                    url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000"
+                    chooseLabel="Alterar" [auto]="true">
+                </p-fileUpload>
+            </div>
+        </div>
+    </div>
+
+    <form [formGroup]="form">
+        <div class="container-dash mt-3">
+            <div class="row g-3 mt-2">
+                <div class="col-md-6">
+                    <label>Nome Completo</label>
+
+                    <input type="text" pInputText formControlName="nomeAtual" class="w-100" appUppercase appUppercase />
+                </div>
+
+                <div class="col-md-6">
+                    <label>Nome Solteiro</label>
+
+                    <input type="text" pInputText formControlName="nomeSolteiro" class="w-100" appUppercase
+                        appUppercase>
+                </div>
+                <div class="col-md-6">
+                    <label>Conjuge</label>
+
+                    <input type="text" pInputText formControlName="nomeConjugeAtual" class="w-100" appUppercase
+                        appUppercase>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Conjuge Anterior</label>
+
+                    <input type="text" pInputText formControlName="nomeConjugeAnterior" class="w-100" appUppercase
+                        appUppercase>
+                </div>
+
+                <div class="col-md-4">
+                    <label>Sexo</label>
+
+                    <p-select id="sexo" formControlName="sexo" optionValue="value" optionLabel="label"
+                        [options]="sexoOptions" placeholder="Selecione">
+                    </p-select>
+                </div>
+                <div class="col-md-4">
+                    <label>Nascimento</label>
+
+                    <input pInputText id="dataNascimento" formControlName="dataNascimento" type="date" />
+                </div>
+
+                <div class="col-md-4">
+                    <label>Signo:</label>
+
+                    <p-select id="signo" formControlName="idSigno" optionValue="id" [filter]="true" filterBy="nome"
+                        optionLabel="nome" [options]="signos" placeholder="Selecione" [showClear]="true"
+                        readonly="true" />
+
+                </div>
+
+                <div class="col-md-6">
+                    <label>Telefone</label>
+
+                    <input type="text" pInputText formControlName="telefone" class="w-100">
+                </div>
+
+                <div class="col-md-6">
+                    <label>Email</label>
+
+                    <input type="email" pInputText formControlName="email" class="w-100">
+
+                </div>
+
+
+            </div>
+        </div>
+        <div class="container-dash mt-5">
+
+            <p-card header="Localização Origem">
+                <div class="row g-3 mt-2">
+                    <div class="col-md-2">
+                        <label for="paisOrigem">País</label>
+                        <input id="paisOrigem" type="text" formControlName="paisOrigem" pInputText class="to-upper-case"
+                            (blur)="loadEstados(2)" autofocus="true" (keydown.enter)="focusNext($event)" />
+
+                    </div>
+                    <div class="col-md-2">
+                        <label for="estadoOrigem">Estado</label>
+                        <p-select id="estadoOrigem" formControlName="estadoOrigem"
+                            [options]="(estadosOrigem$ | async) || []" placeholder="Selecione" [showClear]="true"
+                            (onChange)="loadLocalizacoes(2)" autofocus="true">
+                        </p-select>
+                    </div>
+                    <div class="col-md-8">
+
+                        <label for="idLocalizacaoOrigem">Local:</label>
+                        <div class="p-inputgroup">
+                            <p-select id="idLocalizacaoOrigem" formControlName="idLocalizacaoOrigem" optionValue="id"
+                                optionLabel="nomeEstadoPais" [options]="localizacoesOrigem" placeholder="Selecione"
+                                [showClear]="true" [filter]="true" filterBy="nomeEstadoPais" class="me-2">
+                            </p-select>
+                            <button pButton pRipple icon="pi pi-plus-circle" (click)="incluiLocalizacaoOnClick(2)"
+                                class="p-button-sm mr-1">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </p-card>
+
+            <p-card header="Localização Atual">
+                <div class="row g-3 mt-2">
+                    <div class="col-md-2">
+                        <label for="pais">País</label>
+                        <input id="pais" type="text" formControlName="pais" pInputText class="to-upper-case" autofocus
+                            (blur)="loadEstados(1)" (keydown.enter)="focusNext($event)" />
+                    </div>
+                    <div class="col-md-2">
+                        <label for="estado">Estado</label>
+
+                        <p-select id="estado" formControlName="estado" [options]="(estados$ | async) || []"
+                            placeholder="Selecione" [showClear]="true" (onChange)="loadLocalizacoes(1)">
+                        </p-select>
+
+                    </div>
+                    <div class="col-md-8">
+
+                        <label for="idLocalizacaoAtual">Local:</label>
+                        <div class="p-inputgroup">
+                            <p-select id="idLocalizacaoAtual" formControlName="idLocalizacaoAtual" optionValue="id"
+                                optionLabel="nomeEstadoPais" [options]="localizacoes" placeholder="Selecione"
+                                [showClear]="true" [filter]="true" filterBy="nomeEstadoPais" class="me-2">
+                            </p-select>
+                            <button pButton pRipple icon="pi pi-plus-circle" (click)="incluiLocalizacaoOnClick(1)"
+                                class="p-button-sm mr-1">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </p-card>
+
+        </div>
+        <div class="container-dash mt-5">
+            <p-card header="Informações para Estatisticas" subheader="(Opcional)">
+                <p class="m-0" style="color:red;">
+                    *** Nenhuma informação será identificada individualmente. Os dados são para efeito de geração de
+                    graficos
+                    estatisticos relacionados a familia para efeito de curiosidade ***
+                </p>
+            </p-card>
+            <div class="row g-3 mt-2">
+                <div class="col-md-6">
+
+                    <label for="idProfissao">Profissão</label>
+                    <div class="p-inputgroup">
+
+
+                        <p-select id="idProfissao" formControlName="idProfissao" optionValue="id"
+                            optionLabel="descricao" [options]="profissoes" placeholder="Selecione" [showClear]="true"
+                            class="me-2">
+                        </p-select>
+
+                        <button pButton pRipple icon="pi pi-filter" (click)="filterProfissaoOnClick()"
+                            class="p-button-sm mr-1">
+                        </button>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="religiao">Religião</label>
+                    <div class="p-inputgroup">
+                        <p-select id="religiao" formControlName="idReligiao" optionValue="id" optionLabel="nome"
+                            [options]="religioes" placeholder="Selecione" [showClear]="true" [filter]="true"
+                            filterBy="nome" class="me-2">
+                        </p-select>
+                        <button pButton pRipple icon="pi pi-filter" (click)="viewInformacaoOnClick('RELIGIAO')"
+                            class="p-button-sm mr-1">
+                        </button>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <label for="politica">Ideologia Politica</label>
+                    <div class="p-inputgroup">
+                        <p-select id="politica" formControlName="idPolitica" optionValue="id" optionLabel="descricao"
+                            [options]="politicas" [filter]="true" filterBy="descricao" placeholder="Selecione"
+                            [showClear]="true" class="me-2">
+                        </p-select>
+                        <button pButton pRipple icon="pi pi-filter" (click)="viewInformacaoOnClick('POLITICA')"
+                            class="p-button-sm mr-1">
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="time">Time de Futebol</label>
+                    <div class="p-inputgroup">
+                        <p-select id="time" formControlName="idTimeFutebol" optionValue="id" [filter]="true"
+                            filterBy="nomeEstado" optionLabel="nomeEstado" [options]="timesFutebol"
+                            placeholder="Selecione" [showClear]="true" class="me-2">
+                        </p-select>
+
+                        <button pButton pRipple icon="pi pi-filter" (click)="viewInformacaoOnClick('TIME')"
+                            class="p-button-sm mr-1">
+                        </button>
+                    </div>
+
+
+                </div>
+                <div class="col-md-6">
+                    <label for="estilo">Genero Musical</label>
+                    <div class="p-inputgroup">
+                        <p-select id="estilo" formControlName="idEstiloMusical" optionValue="id" [filter]="true"
+                            filterBy="nome" optionLabel="nome" [options]="estilosMusicais" placeholder="Selecione"
+                            [showClear]="true" class="me-2">
+                        </p-select>
+
+                        <button pButton pRipple icon="pi pi-filter" (click)="viewInformacaoOnClick('GENERO_MUSICAL')"
+                            class="p-button-sm mr-1">
+                        </button>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <label for="habitoAlimentar">Habito Alimentar</label>
+                    <div class="p-inputgroup">
+                        <p-select id="habitoAlimentar" formControlName="idHabitoAlimentar" optionValue="id"
+                            [filter]="true" filterBy="descricao" optionLabel="descricao" [filter]="true"
+                            filterBy="descricao" [options]="habitosAlimentar" placeholder="Selecione" [showClear]="true"
+                            autoShowPanelOnPrintableCharacterKeyDown="false" class="me-2">
+
+                        </p-select>
+                        <button pButton pRipple icon="pi pi-filter" (click)="viewInformacaoOnClick('HABITO_ALIMENTAR')"
+                            class="p-button-sm mr-1">
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="estilo">Temperamento</label>
+                    <div class="p-inputgroup">
+                        <p-select id="estilo" formControlName="idTemperamento" optionValue="id" [filter]="true"
+                            filterBy="descricao" optionLabel="descricao" [options]="temperamentos"
+                            placeholder="Selecione" [showClear]="true" class="me-2">
+                        </p-select>
+
+                        <button pButton pRipple icon="pi pi-filter" (click)="viewInformacaoOnClick('TEMPERAMENTO')"
+                            class="p-button-sm mr-1">
+                        </button>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <label for="estilo">Tipo Sanguineo</label>
+                    <div class="p-inputgroup">
+                        <p-select id="tipoSanguineo" formControlName="idTipoSanguineo" optionValue="id" [filter]="true"
+                            filterBy="descricao" optionLabel="descricao" [options]="tiposSanguineo"
+                            placeholder="Selecione" [showClear]="true" class="me-2">
+                        </p-select>
+
+                        <button pButton pRipple icon="pi pi-filter" (click)="viewInformacaoOnClick('TIPO_SANGUINEO')"
+                            class="p-button-sm mr-1">
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </form>
+
+
+    <div class="d-flex justify-content-between w-100">
+
+        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-contrast" (click)="cancelar()">
+        </button>
+
+        <button pButton label="Salvar" icon="pi pi-check" class="p-button-info" (click)="salvar()">
+        </button>
+
+    </div>
+
+ <p-toast position="bottom-center"></p-toast>
+    <!--  Dialog de Introducao -->
+    <p-dialog styleClass="dialog-custom p-fluid" [breakpoints]="{'860px': '75vw', '540px': '100vw'}"
+        [style]="{width: '100vw'}" [maximizable]="true" [modal]="true" [(visible)]="introducaoVisible">
+        <div class="row">
+            <div class="col-4">
+                <label>Tema:</label>
+            </div>
+            <div class="col-8">
+                <label>{{introducao.tema}}</label>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-12">
+
+                <textarea type="text" [(ngModel)]="introducao.explicacao" pInputTextarea autofocus rows="10" cols="150"
+                    style="-webkit-box-sizing: border-box;
+                           -moz-box-sizing: border-box;
+                           box-sizing: border-box;
+                       
+                           width: 100%;" disabled="true"></textarea>
+            </div>
+        </div>
+    </p-dialog>
+
+    <!--  Dialog de Profissoes -->
+    <p-dialog header="Profissões" [breakpoints]="{'760px': '75vw', '540px': '100vw'}" [style]="{width: '100vw'}"
+        [maximizable]="true" [modal]="true" [(visible)]="filtroProfissaoVisible" styleClass="dialog-custom"
+        maskStyleClass="dialog-custom-mask">
+        <!-- ÁREA EXPLICATIVA -->
+        <div class="card-area explicacao-area">
+
+            <div class="titulo-secao">
+                <i class="pi pi-info-circle"></i>
+                <span>Orientações</span>
+            </div>
+
+            <textarea type="text" [(ngModel)]="introducao.explicacao" pInputTextarea autofocus rows="3" style="-webkit-box-sizing: border-box;
+                           -moz-box-sizing: border-box;
+                           box-sizing: border-box;
+                       
+                           width: 100%;" disabled="true"></textarea>
+        </div>
+
+        <!-- TABELA -->
+        <div class="card-area tabela-area">
+
+            <div class="titulo-secao">
+                <i class="pi pi-list"></i>
+                <span>Itens</span>
+            </div>
+
+            <div class="table-responsive tabela-wrapper">
+
+                <p-table #dtProfissao dataKey="id" [value]="profissoes" [globalFilterFields]="['descricao']"
+                    [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 20, 50, 100]" sortMode="multiple"
+                    [scrollable]="true" [resizableColumns]="true" responsiveLayout="stack"
+                    styleClass="table tabela-elegante" [rowHover]="true" responsiveLayout="scroll"
+                    currentPageReportTemplate="Listando {first} a {last} de {totalRecords} registros"
+                    [showCurrentPageReport]="true">
+                    <ng-template pTemplate="caption">
+                        <div class="row">
+                            <div class="col-2">
+                                <p-button title="Clear" icon="pi pi-filter-slash" class="p-button-sm mr-1"
+                                    (click)="clear(dtProfissao)">
+                                </p-button>
+
+                            </div>
+                            <div class="col-1">
+                                <i class="pi pi-search"></i>
+                            </div>
+                            <div class="col-6">
+                                <span class="p-input-icon-left ml-auto">
+
+                                    <input pInputText type="text" [(ngModel)]="searchProfissao"
+                                        (input)="dtProfissao.filterGlobal($event.target.value, 'contains')"
+                                        placeholder="palavra chave" />
+                                </span>
+                            </div>
+                            <div class="col-2">
+                                <p-button title="Novo Item" icon="pi pi-plus" class="p-button-sm mr-1"
+                                    (click)="salvarNovaProfissao()">
+                                </p-button>
+
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+
+                            <th class="table-acoes">Ações</th>
+
+                            <th pResizableColumn pSortableColumn="descricao">Descrição<p-sortIcon
+                                    field="descricao"></p-sortIcon></th>
+
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="body" let-selectedRecord>
+                        <tr>
+
+                            <td class="table-acoes">
+                                <button pButton pRipple icon="pi pi-download"
+                                    class="p-button-rounded p-button-outlined p-button-info mr-1"
+                                    (click)="captureProfissao(selectedRecord)">
+                                </button>
+
+                            </td>
+                            <td>{{selectedRecord.descricao}}</td>
+
+
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="summary">
+                        <div class="p-d-flex p-ai-center p-jc-between">
+                            Total de registros: {{profissoes ? profissoes.length : 0 }}
+                        </div>
+                    </ng-template>
+
+                </p-table>
+            </div>
+        </div>
+
+    </p-dialog>
+
+
+    <!--  Dialog de Temas com campo descricao -->
+    <p-dialog header="Explicação {{titleIntroducao}}" [(visible)]="viewInformacaoDescricao"
+        [breakpoints]="{'860px': '75vw', '540px': '100vw'}" [style]="{ width: '50rem' }" [modal]="true"
+        [maximizable]="true" styleClass="dialog-custom" maskStyleClass="dialog-custom-mask">
+        <div class="container-fluid formulario-container">
+
+            <!-- ÁREA EXPLICATIVA -->
+            <div class="card-area explicacao-area">
+
+                <div class="titulo-secao">
+                    <i class="pi pi-info-circle"></i>
+                    <span>Orientações</span>
+                </div>
+
+                <textarea pTextarea class="textarea-explicacao" readonly rows="5" [value]="introducao.explicacao">
+               </textarea>
+
+            </div>
+
+            <!-- TABELA -->
+            <div class="card-area tabela-area">
+
+                <div class="titulo-secao">
+                    <i class="pi pi-list"></i>
+                    <span>Itens</span>
+                </div>
+
+                <div class="table-responsive tabela-wrapper">
+
+                    <p-table #dtInformacao1 dataKey="id" [value]="informacoes"
+                        [globalFilterFields]="['descricao', 'informacao']" [paginator]="true" [rows]="10"
+                        [rowsPerPageOptions]="[10, 20, 50, 100]" sortMode="multiple" [scrollable]="true"
+                        [resizableColumns]="true" responsiveLayout="stack" styleClass="table tabela-elegante"
+                        [rowHover]="true" responsiveLayout="scroll"
+                        currentPageReportTemplate="Listando {first} a {last} de {totalRecords} registros"
+                        [showCurrentPageReport]="true">
+
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="table-acoes">Ações</th>
+                                <th pResizableColumn pSortableColumn="descricao">Descrição<p-sortIcon
+                                        field="descricao"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="informacao">Informação<p-sortIcon
+                                        field="descricao"></p-sortIcon></th>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-selectedRecord>
+                            <tr>
+
+                                <td class="table-acoes">
+                                    <button pButton pRipple icon="pi pi-download"
+                                        class="p-button-rounded p-button-outlined p-button-info mr-1"
+                                        (click)="captureItem(selectedRecord)">
+                                    </button>
+
+                                </td>
+                                <td>{{selectedRecord.descricao}}</td>
+                                <td>
+                                    <textarea type="text" [(ngModel)]="selectedRecord.informacao" pInputTextarea
+                                        autofocus rows="3" cols="100" style="-webkit-box-sizing: border-box;
+                           -moz-box-sizing: border-box;
+                           box-sizing: border-box;
+                       
+                           width: 100%;" disabled="true"></textarea>
+                                </td>
+
+
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="summary">
+                            <div class="p-d-flex p-ai-center p-jc-between">
+                                Total de registros: {{informacoes ? informacoes.length : 0 }}
+                            </div>
+                        </ng-template>
+
+                    </p-table>
+
+                </div>
+
+            </div>
+
+        </div>
+    </p-dialog>
+
+
+    <!--  Dialog de Temas com campo nome -->
+    <p-dialog header="Explicação {{titleIntroducao}}" styleClass="dialog-custom p-fluid"
+        [breakpoints]="{'860px': '75vw', '540px': '100vw'}" [style]="{width: '50vw'}" [maximizable]="true"
+        [modal]="true" [(visible)]="viewInformacaoNome">
+
+        <div class="container-fluid formulario-container">
+
+            <!-- ÁREA EXPLICATIVA -->
+            <div class="card-area explicacao-area">
+
+                <div class="titulo-secao">
+                    <i class="pi pi-info-circle"></i>
+                    <span>Orientações</span>
+                </div>
+
+                <textarea pTextarea class="textarea-explicacao" readonly rows="5" [value]="introducao.explicacao">
+               </textarea>
+
+            </div>
+
+            <!-- TABELA -->
+            <div class="card-area tabela-area">
+
+                <div class="titulo-secao">
+                    <i class="pi pi-list"></i>
+                    <span>Itens</span>
+                </div>
+
+                <div class="table-responsive tabela-wrapper">
+
+                    <p-table #dtInformacao1 dataKey="id" [value]="informacoes"
+                        [globalFilterFields]="['nome', 'informacao']" [paginator]="true" [rows]="10"
+                        [rowsPerPageOptions]="[10, 20, 50, 100]" sortMode="multiple" [scrollable]="true"
+                        [resizableColumns]="true" responsiveLayout="stack" styleClass="table tabela-elegante"
+                        [rowHover]="true" responsiveLayout="scroll"
+                        currentPageReportTemplate="Listando {first} a {last} de {totalRecords} registros"
+                        [showCurrentPageReport]="true">
+
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="table-acoes">Ações</th>
+                                <th pResizableColumn pSortableColumn="nome">Descrição<p-sortIcon
+                                        field="nome"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="informacao">Informação<p-sortIcon
+                                        field="nome"></p-sortIcon></th>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-selectedRecord>
+                            <tr>
+
+                                <td class="table-acoes">
+                                    <button pButton pRipple icon="pi pi-download"
+                                        class="p-button-rounded p-button-outlined p-button-info mr-1"
+                                        (click)="captureItem(selectedRecord)">
+                                    </button>
+
+                                </td>
+                                <td>{{selectedRecord.nome}}</td>
+                                <td>
+                                    <textarea type="text" [(ngModel)]="selectedRecord.informacao" pInputTextarea
+                                        autofocus rows="3" cols="100" style="-webkit-box-sizing: border-box;
+                           -moz-box-sizing: border-box;
+                           box-sizing: border-box;
+                       
+                           width: 100%;" disabled="true"></textarea>
+                                </td>
+
+
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="summary">
+                            <div class="p-d-flex p-ai-center p-jc-between">
+                                Total de registros: {{informacoes ? informacoes.length : 0 }}
+                            </div>
+                        </ng-template>
+
+                    </p-table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </p-dialog>
+
+    <p-dialog header="Explicação {{titleIntroducao}}" styleClass="dialog-custom p-fluid"
+        [breakpoints]="{'860px': '75vw', '540px': '100vw'}" [style]="{width: '50vw'}" [maximizable]="true"
+        [modal]="true" [(visible)]="viewInformacaoNomePequeno">
+
+        <div class="container-fluid formulario-container">
+
+            <!-- ÁREA EXPLICATIVA -->
+            <div class="card-area explicacao-area">
+
+                <div class="titulo-secao">
+                    <i class="pi pi-info-circle"></i>
+                    <span>Orientações</span>
+                </div>
+
+                <textarea pTextarea class="textarea-explicacao" readonly rows="5" [value]="introducao.explicacao">
+               </textarea>
+
+            </div>
+
+            <!-- TABELA -->
+            <div class="card-area tabela-area">
+
+                <div class="titulo-secao">
+                    <i class="pi pi-list"></i>
+                    <span>Itens</span>
+                </div>
+
+                <div class="table-responsive tabela-wrapper">
+
+                    <p-table #dtInformacaoPeq dataKey="id" [value]="informacoes"
+                        [globalFilterFields]="['nome']" [paginator]="true" [rows]="10"
+                        [rowsPerPageOptions]="[10, 20, 50, 100]" sortMode="multiple" [scrollable]="true"
+                        [resizableColumns]="true" responsiveLayout="stack" styleClass="table tabela-elegante"
+                        [rowHover]="true" responsiveLayout="scroll"
+                        currentPageReportTemplate="Listando {first} a {last} de {totalRecords} registros"
+                        [showCurrentPageReport]="true">
+                        <ng-template pTemplate="caption">
+                            <div class="row">
+                                <div class="col-2">
+                                    <p-button title="Clear" icon="pi pi-filter-slash" class="p-button-sm mr-1"
+                                        (click)="clear(dtInformacaoPeq)">
+                                    </p-button>
+
+                                </div>
+                                <div class="col-1">
+                                    <i class="pi pi-search"></i>
+                                </div>
+                                <div class="col-6">
+                                    <span class="p-input-icon-left ml-auto">
+
+                                        <input pInputText type="text" [(ngModel)]="searchValue"
+                                            (input)="dtInformacaoPeq.filterGlobal($event.target.value, 'contains')"
+                                            placeholder="palavra chave" />
+                                    </span>
+                                </div>
+
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="table-acoes">Ações</th>
+                                <th pResizableColumn pSortableColumn="nome">Descrição<p-sortIcon
+                                        field="nome"></p-sortIcon></th>
+
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-selectedRecord>
+                            <tr>
+
+                                <td class="table-acoes">
+                                    <button pButton pRipple icon="pi pi-download"
+                                        class="p-button-rounded p-button-outlined p-button-info mr-1"
+                                        (click)="captureItem(selectedRecord)">
+                                    </button>
+
+                                </td>
+                                <td>{{selectedRecord.nome}}</td>
+
+
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="summary">
+                            <div class="p-d-flex p-ai-center p-jc-between">
+                                Total de registros: {{informacoes ? informacoes.length : 0 }}
+                            </div>
+                        </ng-template>
+
+                    </p-table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </p-dialog>
+
+
+    <p-dialog header="Explicação {{titleIntroducao}}" styleClass="dialog-custom p-fluid"
+        [breakpoints]="{'860px': '75vw', '540px': '100vw'}" [style]="{width: '50vw'}" [maximizable]="true"
+        [modal]="true" [(visible)]="viewInformacaoDescricaoPequeno">
+
+        <div class="container-fluid formulario-container">
+
+            <!-- ÁREA EXPLICATIVA -->
+            <div class="card-area explicacao-area">
+
+                <div class="titulo-secao">
+                    <i class="pi pi-info-circle"></i>
+                    <span>Orientações</span>
+                </div>
+
+                <textarea pTextarea class="textarea-explicacao" readonly rows="5" [value]="introducao.explicacao">
+               </textarea>
+
+            </div>
+
+            <!-- TABELA -->
+            <div class="card-area tabela-area">
+
+                <div class="titulo-secao">
+                    <i class="pi pi-list"></i>
+                    <span>Itens</span>
+                </div>
+
+                <div class="table-responsive tabela-wrapper">
+
+                    <p-table #dtInformacaoDescPeq dataKey="id" [value]="informacoes"
+                        [globalFilterFields]="['descricao']" [paginator]="true" [rows]="10"
+                        [rowsPerPageOptions]="[10, 20, 50, 100]" sortMode="multiple" [scrollable]="true"
+                        [resizableColumns]="true" responsiveLayout="stack" styleClass="table tabela-elegante"
+                        [rowHover]="true" responsiveLayout="scroll"
+                        currentPageReportTemplate="Listando {first} a {last} de {totalRecords} registros"
+                        [showCurrentPageReport]="true">
+                        <ng-template pTemplate="caption">
+                            <div class="row">
+                                <div class="col-2">
+                                    <p-button title="Clear" icon="pi pi-filter-slash" class="p-button-sm mr-1"
+                                        (click)="clear(dtInformacaoPeq)">
+                                    </p-button>
+
+                                </div>
+                                <div class="col-1">
+                                    <i class="pi pi-search"></i>
+                                </div>
+                                <div class="col-6">
+                                    <span class="p-input-icon-left ml-auto">
+
+                                        <input pInputText type="text" [(ngModel)]="searchValue"
+                                            (input)="dtInformacaoDescPeq.filterGlobal($event.target.value, 'contains')"
+                                            placeholder="palavra chave" />
+                                    </span>
+                                </div>
+
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="table-acoes">Ações</th>
+                                <th pResizableColumn pSortableColumn="nome">Descrição<p-sortIcon
+                                        field="nome"></p-sortIcon></th>
+
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-selectedRecord>
+                            <tr>
+
+                                <td class="table-acoes">
+                                    <button pButton pRipple icon="pi pi-download"
+                                        class="p-button-rounded p-button-outlined p-button-info mr-1"
+                                        (click)="captureItem(selectedRecord)">
+                                    </button>
+
+                                </td>
+                                <td>{{selectedRecord.descricao}}</td>
+
+
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="summary">
+                            <div class="p-d-flex p-ai-center p-jc-between">
+                                Total de registros: {{informacoes ? informacoes.length : 0 }}
+                            </div>
+                        </ng-template>
+
+                    </p-table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </p-dialog>
+
+
+    <p-dialog header="Nova Localização" styleClass="dialog-custom p-fluid"
+        [breakpoints]="{'860px': '75vw', '540px': '100vw'}" [style]="{width: '50vw'}" [maximizable]="true"
+        [modal]="true" [(visible)]="newLocalizacao">
+
+        <div class="p-field">
+            <label for="paisNew">Pais</label>
+            <input id="paisNew" type="text" [(ngModel)]="pais" pInputText class="to-upper-case" autofocus />
+
+        </div>
+        <div class="p-field">
+            <label for="estadoNew">Estado</label>
+            <input id="estadoNew" type="text" [(ngModel)]="estado" pInputText class="to-upper-case" autofocus />
+
+        </div>
+        <div class="p-field">
+            <label for="LocalNew">Local</label>
+            <input id="localNew" type="text" [(ngModel)]="local" pInputText class="to-upper-case" autofocus />
+
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <button pButton pRipple label="Salvar Localização" icon="pi pi-check"
+                    (click)="salvarLocalizacaoOnClick()" class="p-button-sm">
+                </button>
+            </div>
+        </div>
+    </p-dialog>

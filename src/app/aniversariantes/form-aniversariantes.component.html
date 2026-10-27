@@ -1,0 +1,111 @@
+<div class="container mt-4 mb-5">
+    <!-- Card Principal -->
+    <div class="card shadow-sm border-0 rounded-3 overflow-hidden">
+
+        <!-- Banner de Boas-Vindas Ilustrativo Integrado -->
+        <div
+            class="birthday-banner d-flex align-items-center justify-content-between p-4 p-md-5 text-white position-relative">
+            <div class="z-2">
+                <span
+                    class="badge bg-white text-primary fw-bold mb-2 text-uppercase tracking-wider px-3 py-2">Comemorações</span>
+                <h2 class="fw-bold m-0 display-6">Aniversariantes do Mês</h2>
+                <p class="mb-0 opacity-85 mt-1 d-none d-sm-block">Acompanhe as datas especiais e celebre junto com sua
+                    familia.</p>
+            </div>
+            <!-- Elemento Flutuante Ilustrativo (Ícone Festivo) -->
+            <div class="banner-icon d-none let-md-block opacity-25 position-absolute end-0 bottom-0 m-4">
+                <i class="pi pi-gift" style="font-size: 8rem;"></i>
+            </div>
+        </div>
+
+        <!-- Seção de Filtros e Busca -->
+        <div class="card-body p-4 bg-white">
+            <div class="row g-3 align-items-center mb-4">
+
+                <!-- Seleção do Mês (PrimeNG Moderno p-select) -->
+                <div class="col-12 col-md-4 col-lg-3">
+                    <label class="form-label small fw-semibold text-secondary">Selecione o Mês</label>
+                    <p-select [options]="meses" [(ngModel)]="mesSelecionado" optionLabel="label" optionValue="value"
+                        placeholder="Escolha o mês" styleClass="w-100 custom-select" (onChange)="listar()">
+                    </p-select>
+                </div>
+
+
+
+                <!-- Contador sutil do total à direita -->
+                <div class="col-12 col-md-3 col-lg-5 text-md-end mt-md-4">
+                    <span class="text-muted small">Total encontrado: <strong class="text-dark">{{
+                            todosAniversariantes.length }}</strong></span>
+                </div>
+            </div>
+
+            <!-- Tabela Reativa PrimeNG com Layout Adaptável para Celular -->
+            <p-table [value]="todosAniversariantes" responsiveLayout="stack" [breakpoint]="'768px'"
+                styleClass="p-datatable-striped custom-table">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 10%">Dia</th>
+                        <th style="width: 40%">Nome</th>
+                        <th style="width: 30%">E-mail</th>
+                        <th style="width: 20%" class="text-end">Ações</th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-user let-columns="columns">
+                    <tr>
+                        <!-- Coluna Dia com selo redondo de destaque -->
+                        <td>
+                            <span class="p-column-title fw-bold text-secondary d-md-none">Dia do Aniversário:</span>
+                            <div class="day-badge text-center fw-bold text-primary bg-primary-subtle rounded-circle d-inline-flex align-items-center justify-content-center"
+                                style="width: 42px; height: 42px;">
+                                {{ user.dia }}
+                            </div>
+                        </td>
+
+                        <!-- Coluna Perfil (Avatar + Nome + Cargo) -->
+                        <td>
+                            <span class="p-column-title fw-bold text-secondary d-md-none">Nome:</span>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="text-truncate">
+                                    <div class="fw-semibold text-dark text-truncate">{{ user.nomeAtual }}</div>
+
+                                </div>
+                            </div>
+                        </td>
+
+                        <!-- Coluna Email -->
+                        <td>
+                            <span class="p-column-title fw-bold text-secondary d-md-none">E-mail:</span>
+                            <span class="text-secondary small">{{ user.email }}</span>
+                        </td>
+
+                        <!-- Coluna Ações (Botão de dar parabéns) -->
+                        <td class="text-md-end">
+                            <span class="p-column-title fw-bold text-secondary d-md-none">Ações:</span>
+                            <button pButton icon="pi pi-send" label="Dar Parabéns"
+                                class="p-button-outlined p-button-sm p-button-rounded whatsapp-btn"
+                                (click)="enviarMensagemWhatsapp(user)">
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <!-- Template para Lista Vazia -->
+                <ng-template pTemplate="emptystate">
+                    <tr>
+                        <td colspan="4" class="text-center py-5 text-muted">
+                            <div class="py-4">
+                                <i class="pi pi-calendar-times text-black-50 mb-3" style="font-size: 3rem;"></i>
+                                <p class="mb-0 fw-medium">Nenhum aniversariante encontrado para os critérios
+                                    selecionados.</p>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+
+            </p-table>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,212 @@
+<!-- 🔝 TOPO FIXO -->
+<div class="header shadow">
+    <a href="#">
+        <h4 class="titulo">Familia Turchetta no Brasil</h4>
+    </a>
+
+</div>
+
+<div class="container main-content">
+    <!-- 👤 AVATAR + TEXTO -->
+    <div class="row align-items-center avatar-section shadow-sm p-3 mb-4 bg-white rounded">
+
+        <div class="col-md-4 text-center">
+            <img [src]="imgRecourseGeracao1" class="avatar">
+            <img [src]="imgRecourseConjugeGeracao1" class="avatar">
+        </div>
+
+        <div class="col-md-8">
+            <h5>{{nomeAtualGeracao1}}</h5>
+            <p>Conjuge {{nomeConjugeGeracao1}}</p>
+        </div>
+
+    </div>
+
+    <div class="card-body">
+        <div class="card flex flex-column align-items-center justify-content-center">
+            <div class="mb-3">
+
+                <p-button icon="pi pi-backward" title="Anterior" (click)="anterior()" 
+                >
+                </p-button>
+                {{grupo.descricao}}
+                <p-button icon="pi pi-forward" title="Proximo" (click)="proximo()">
+                </p-button>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- 🎞 CARROSSEL -->
+    <div class="container py-5">
+
+        <h3 class="text-center mb-4 fw-bold">
+            {{totalIntegrantes}} Integrantes <span class="custom-tooltip" data-tooltip="Registro atualizado pelo próprio
+integrante"> Cadastrados</span> e <span class="custom-tooltip" data-tooltip="Registro não atualizado, inserido no sistema
+para composição da arvore genealógica,
+aguardando a atualização pelo próprio
+integrante ou do seu descendente.">Pré-Cadastrados</span>
+        </h3>
+        <p-carousel [value]="images" [numVisible]="5" [numScroll]="1" [circular]="false"
+            [responsiveOptions]="responsiveOptions">
+            <ng-template let-image pTemplate="item">
+                <div class="border-1 surface-border border-round m-2 p-3">
+                    <div class="mb-6">
+                        <div class="relative mx-auto">
+                            <img [src]="image.previewImageSrc" [alt]="image.alt" [title]="image.ancestral"
+                                class="avatar2" />
+                            <!--     <img [src]="image.previewImageSrcConjuge" [alt]="image.nomeAtual"
+                             width="120px"  class="img-circle"  *ngIf="image.origem !== 'semconjuge'" />
+                        -->
+
+                        </div>
+                    </div>
+                    <div class="mb-6 font-medium">
+                        {{ image.title }}
+                    </div>
+                    <div class="mb-6 font-medium">
+                        {{ image.datas }}
+                    </div>
+
+                </div>
+            </ng-template>
+        </p-carousel>
+    </div>
+
+</div>
+
+<!-- 🔘 BOTÕES -->
+<div class="container mt-4">
+    <div class="row g-3">
+
+        <div class="col-12 col-md-6">
+            <p-button label="Faço parte desta geração e gostaria de incluir meus dados" [rounded]="true"
+                class="btn-pertence" (click)="chamarFormulario(1)" />
+
+        </div>
+
+        <div class="col-12 col-md-6">
+            <p-button label="Não encontrei a geração mas reconheco-me como familiar" [rounded]="true"
+                severity="contrast" (click)="chamarFormulario(2)" />
+
+        </div>
+
+    </div>
+</div>
+<p-toast></p-toast>
+<p-dialog [(visible)]="exibirDialog" [modal]="true" [style]="{ width: '50rem' }" [draggable]="false" [resizable]="false"
+    [closable]="true" [maximizable]="true" (onHide)="fecharDialog()" styleClass="dialog-custom">
+
+    <div class="w-100 d-flex flex-column align-items-center">
+
+        <img [src]="imgRecourse" class="avatar">
+        <p-fileUpload mode="basic" name="demo[]" chooseIcon="pi pi-upload"
+            url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000"
+            chooseLabel="Foto" [auto]="true" (onUpload)="onUpload($event)">
+        </p-fileUpload>
+        @if (modo == 'Pertenço') {
+        <h3 class="text-center mb-4 fw-bold" title="Faço parte desta geração">{{modo}} -
+            {{grupo.descricao}} </h3>
+        }
+        @if (modo != 'Pertenço') {
+        <h3 class="text-center mb-4 fw-bold"><span class="custom-tooltip" data-tooltip="ATENCÃO! Os nomes dos Ancestrais serão inseridos 
+    no sistema na condição de Pré Cadastrados, 
+    importante para o mapeamento da Arvore Genealogica">Não encontrei meus ancestrais <br /> Mas reconheco-me como
+                Familiar </span></h3>
+
+        }
+
+    </div>
+
+    <form [formGroup]="form">
+
+
+        @if (modo == 'Pertenço') {
+        <div class="row g-3 mt-2">
+            <div class="col-md-6">
+                <label for="idAncestral">Ancestral</label>
+                <p-select id="idAncestral" formControlName="idAncestral" optionValue="id" optionLabel="nomeAtual"
+                    [options]="ancestrais" placeholder="Selecione" [showClear]="true" (click)="limparAncestralidade()">
+                </p-select>
+            </div>
+            <div class="col-md-6">
+                <label for="idAncestral">Sem Ancestral Cadastrado</label>
+                <p-checkbox [(ngModel)]="semAncestral" [binary]="true" [ngModelOptions]="{standalone: true}"
+                    (click)="limparAncestral()" />
+
+            </div>
+        </div>
+        }
+        @if (semAncestral) {
+        <div class="row g-3 mt-2">
+            <div class="col-md-4">
+                <label>Pai ou Mãe</label>
+
+                <input type="text" pInputText formControlName="nome1Ancestral" class="w-100">
+            </div>
+            <div class="col-md-4">
+                <label>Avô ou Avó</label>
+
+                <input type="text" pInputText formControlName="nome2Ancestral" class="w-100">
+            </div>
+            <div class="col-md-4">
+                <label>Bisavô ou Bisavó</label>
+
+                <input type="text" pInputText formControlName="nome3Ancestral" class="w-100">
+            </div>
+        </div>
+        }
+
+
+        <div class="row g-3 mt-2">
+            <div class="col-md-6">
+                <label>Nome Completo</label>
+
+                <input type="text" pInputText formControlName="nomeAtual" class="w-100" appUppercase
+                    (input)="converterMaiusculo('nomeAtual')">
+            </div>
+            <div class="col-md-6">
+                <label>Conjuge</label>
+
+                <input type="text" pInputText formControlName="nomeConjugeAtual" class="w-100"
+                    (input)="converterMaiusculo('nomeConjugeAtual')">
+            </div>
+            <div class="col-md-6">
+                <label>Sexo</label>
+
+                <p-select id="sexo" formControlName="sexo" optionValue="value" optionLabel="label" [options]="sexos"
+                    placeholder="Selecione">
+                </p-select>
+            </div>
+            <div class="col-md-6">
+                <label>Nascimento</label>
+
+                <input pInputText id="dataNascimento" formControlName="dataNascimento" type="date" />
+            </div>
+
+            <div class="col-md-6">
+                <label>Telefone</label>
+
+                <input type="text" pInputText formControlName="telefone" class="w-100">
+            </div>
+
+            <div class="col-md-6">
+                <label>Email</label>
+
+                <input type="email" pInputText formControlName="email" class="w-100">
+
+            </div>
+        </div>
+
+    </form>
+
+    <div class="d-flex justify-content-between w-100">
+
+        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-contrast" (click)="fecharDialog()">
+        </button>
+
+        <button pButton label="Salvar" icon="pi pi-check" class="p-button-info" (click)="salvar()">
+        </button>
+
+    </div>
+</p-dialog>
